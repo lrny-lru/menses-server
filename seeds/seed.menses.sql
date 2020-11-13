@@ -1,0 +1,13 @@
+
+BEGIN;
+
+INSERT INTO wiki_items (wiki_title, content)
+VALUES
+  ('PMDD',
+
+  'PMDD is a unique cyclic mood disorder. Premenstrual dysphoric disorder (PMDD) is a severe mood disorder, unique in that symptoms emerge and remit with the hormonal fluctuations of the menstrual cycle. Symptoms emerge monthly in the luteal phase, roughly one to two weeks before menses, when sex steroid hormones are fluctuating. Symptoms quickly remit in the hormonally stable follicular phase of the menstrual cycle, the roughly two weeks between menses and ovulation. Symptoms then return with the following menstrual cycles luteal phase. Characteristic PMDD symptoms include affective lability, irritability, anhedonia, anxiety, as well as decreased interest in usual activities, poor concentration, fatigability, change in appetite, sleep changes, sense of overwhelm, and physical symptoms such as breast tenderness, bloating or headaches (Epperson et al., 2012). The monthly waxing and waning of these symptoms produces distress and functional impairment totaling 24 days to up to 6 months annually (Hantsoo and Epperson, 2015). Across the roughly 450 menstrual cycles that a woman has in her lifetime (Halbreich et al., 2003), a woman who experiences PMDD symptoms for one week per cycle would experience 8.6 cumulative years of symptoms, similar to what someone with recurrent major depressive disorder would experience across their lifetime (Kessler and Walters, 1998). PMDD affects three to eight percent of women worldwide (Halbreich et al., 2003), roughly similar to the prevalence of generalized anxiety disorder or panic disorder (Altemus et al., 2014; Kessler et al., 2005; McLean et al., 2011).)'),
+  ('Endometriosis',
+
+  'Endometriosis is defined as the presence of endometrium in an abnormal or ectopic location (Figure ​(Figure1).1). Histologically, it is the presence of endometrial-like tissue or glands outside the uterine cavity [1-5]. It is a gynecological disorder dependent on hormones observed most commonly in reproductively active women [2,4-5]. The ectopic endometrial tissue responds to hormonal stimulation and undergoes cyclic growth and shedding. Without a way to drain, this causes internal accumulation of blood. Endometriosis is associated often with dyspareunia, cyclic menstrual pain, and pelvic pain [4]. These painful episodes can have a negative effect on the quality of life of patients with this condition experience.');
+  
+  COMMIT;
