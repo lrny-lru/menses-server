@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const mensesService = require('./mensesService');
 
 const mensesRouter = express.Router();
-const bodyParser = express.json();
+//const bodyParser = express.json();
 
 const serializeItem = wiki_items =>({
   id:wiki_items.id,
