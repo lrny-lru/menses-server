@@ -4,4 +4,5 @@ module.exports = {
   //API_TOKEN: process.env.API_TOKEN || 'nonebleedsforsevendaysanddoesntdie',
   NODE_ENV: process.env.NODE_ENV || 'production',
   DATABASE_URL: process.env.DATABASE_URL || 'postgresql://Larue@localhost/menses',
+  TEST_dB_URL:process.env.TEST_dB_URL || 'postgresql://Larue@localhost/testing'
 };

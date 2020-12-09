@@ -1,4 +1,4 @@
-const MensesService = {
+const mensesService = {
   getAllArticles(knex){
     return knex.select('*').from('wiki_items');
   },
@@ -9,4 +9,4 @@ const MensesService = {
 };
 
 
-module.exports = MensesService;
+module.exports = mensesService;
