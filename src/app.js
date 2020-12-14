@@ -17,6 +17,8 @@ const morganOption = (NODE_ENV === 'production')
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded());
 
 app.get('/', (req, res) => {
   res.send('hello world');
