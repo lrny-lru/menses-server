@@ -50,7 +50,7 @@ mensesRouter
   .post('/notes', (req, res, next) => {
     for ( const field of ['subject', 'content'] ) {
 
-      console.log("body: " + JSON.stringify(req.body));
+      console.log('body: ' + JSON.stringify(req.body));
       if ( !req.body[field] ) {
 
         return res.status(400).send(`'${field}' is required`);
