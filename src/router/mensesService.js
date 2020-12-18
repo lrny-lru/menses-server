@@ -1,3 +1,6 @@
+const xss = require('xss');
+
+
 const MensesService = {
   getAllArticles(knex){
     return knex.select('*').from('wiki_items');
@@ -6,7 +9,7 @@ const MensesService = {
   getRelatedArticles(knex,searchTerm){
     return knex('wiki_items').select('*').where('content','ILIKE',`%${searchTerm}%`).orWhere('wiki_title','ILIKE',`%${searchTerm}%`);
   },
-  
+
   insertNote(knex, newNote) {
     return knex.insert(newNote).into('notes').returning('*').then(rows => {
       return rows[0];
