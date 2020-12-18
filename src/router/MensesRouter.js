@@ -45,7 +45,7 @@ mensesRouter
   });
 
 mensesRouter
-  .post('/notes', (req, res, next) => {
+  .post('/notes',bodyParser, (req, res, next) => {
     for ( const field of ['subject', 'content'] ) {
 
       console.log('body: ' + JSON.stringify(req.body));
@@ -57,7 +57,7 @@ mensesRouter
 
     const { subject, content } = req.body;
     const newNote = { subject, content };
-
+    console.log(req.body);
     mensesService.insertNote(req.app.get('db'), newNote)
       .then( note => {
         res
