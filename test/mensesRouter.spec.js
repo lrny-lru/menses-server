@@ -57,7 +57,7 @@ describe('server', () => {
 
   after('disconect db', () => db.destroy());
 
-  describe('getAllArticles', () => {
+  describe('', () => {
     it(`can return a wiki_article`, () => {
       
         
