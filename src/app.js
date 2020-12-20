@@ -21,8 +21,10 @@ app.use(cors());
 app.get('/', (req, res) => {
   res.send('hello world');
 });
-app.use(MensesRouter);
-
+app.use( '/topics', MensesRouter);
+app.use( '/topics/:searchTerm', MensesRouter );
+app.use( '/notes', MensesRouter );
+ 
 app.use(function errorHandler(error, req, res, next) {
   let response;
   if (NODE_ENV === 'development') {
