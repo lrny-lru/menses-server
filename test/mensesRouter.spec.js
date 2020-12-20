@@ -1,67 +1,72 @@
-const server = require('../src/server');
-const supertest = require('supertest');
-const app = require('../src/app');
+/* eslint-disable no-undef */
 const knex = require('knex');
-const { expect } = require('chai');
+const app = require('../src/app');
 const mensesService = require('../src/router/mensesService');
+const mensesRouter = require('../src/router/MensesRouter');
+const supertest = require('supertest');
+const { expect } = require('chai');
 
-
-describe('server', () => {
-
+describe('Notes Endpoints', function () {
   let db;
+  let newNote ={
+    subject:'',
+    content:'',
+  };
 
-  let testArticles = [
+  let testNote = [
     {
-
-      wiki_title: 'First test post!',
-      id: "544c68c9-b754-4e78-8262-f72913271dbd",
-      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
-      keywords: 'crimp, shrimp, dimp'
+      'subject': 'o',
+      'content': 'test'
     },
-    {
-
-      wiki_title: 'Second test post!',
-      id:"544c08c9-b754-4e78-8262-f72913271dbd",
-      content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, exercitationem cupiditate dignissimos est perspiciatis, nobis commodi alias saepe atque facilis labore sequi deleniti. Sint, adipisci facere! Velit temporibus debitis rerum.',
-      keywords: 'flink,blink,slink',
-    },
-    {
-
-      wiki_title: 'Third test post!',
-      id:"514c68c9-b754-4e78-8262-f72913271dbd",
-      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus, voluptate? Necessitatibus, reiciendis? Cupiditate totam laborum esse animi ratione ipsa dignissimos laboriosam eos similique cumque. Est nostrum esse porro id quaerat.',
-      keywords: 'sleen, been, queen',
-    },
+   
   ];
 
-
-
-  before( () => {
-
+  before('make knex instance', () => {
     db = knex({
       client: 'pg',
       connection: process.env.TEST_DB_URL,
     });
-
+    app.set('db', db);
   });
-
-  before( () => db('wiki_items').truncate(/*Remove all data from the table before running tests*/) );
-
-  afterEach(() => db('wiki_items').truncate() ); 
+  before(() => db('notes').truncate());
+  afterEach(() => db('notes').truncate());
 
   before(() => {
     return db
-      .into('wiki_items')
-      .insert(testArticles);
+      .into('notes')
+      .insert(testNote);
   });
 
-  after('disconect db', () => db.destroy());
 
-  describe('', () => {
-    it(`can return a wiki_article`, () => {
-      
-        
+  after('disconnect from db', () => db.destroy());
+
+  describe('POST /notes', () => {
+    ['subject', 'content'].forEach(field => {
+      const newNote = { subject, content };
+
+      it(`responds with 400 missing '${field}' if not supplied`, () => {
+        delete newNote[field];
+
+        return supertest(app)
+          .post('/notes')
+          .send(newNote)
+          .expect(400, {
+            error: { message: `'${field}' is required` },
+          });
+      });
     });
 
+    it('with valid note, inserts into db and returns 201 with location', function () {
+        this.retries(3);
+        const { subject, content,  } = testNote;
+        const newNote = { subject, content };
+        const expected = serializeNote(newNote);
+
   });
+
+
+
+
+
 });
+ 

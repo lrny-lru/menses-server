@@ -15,7 +15,6 @@ const serializeItem = wiki_items =>({
 });
 
 
-
 mensesRouter
   .route('/topics')
   .get((req, res, next) =>{
@@ -69,4 +68,7 @@ mensesRouter
 
   });
 
-module.exports = mensesRouter;
+module.exports = {
+  mensesRouter,
+  
+};

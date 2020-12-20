@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const server = require('../src/server');
 const supertest = require('supertest');
 const app = require('../src/app');
@@ -67,3 +68,4 @@ describe('server', () => {
 
   });
 });
+
