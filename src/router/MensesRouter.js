@@ -68,7 +68,4 @@ mensesRouter
 
   });
 
-module.exports = {
-  mensesRouter,
-  
-};
+module.exports = mensesRouter;

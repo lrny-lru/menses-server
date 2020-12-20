@@ -5,21 +5,14 @@ const mensesService = require('../src/router/mensesService');
 const mensesRouter = require('../src/router/MensesRouter');
 const supertest = require('supertest');
 const { expect } = require('chai');
+const { createTestNotes } = require('./test-helpers');
+const { onTag } = require('xss');
+const { serializeNote } = require('../src/router/mensesService');
 
 describe('Notes Endpoints', function () {
   let db;
-  let newNote ={
-    subject:'',
-    content:'',
-  };
 
-  let testNote = [
-    {
-      'subject': 'o',
-      'content': 'test'
-    },
-   
-  ];
+  const testNotes = createTestNotes();
 
   before('make knex instance', () => {
     db = knex({
@@ -28,45 +21,50 @@ describe('Notes Endpoints', function () {
     });
     app.set('db', db);
   });
-  before(() => db('notes').truncate());
-  afterEach(() => db('notes').truncate());
-
-  before(() => {
-    return db
-      .into('notes')
-      .insert(testNote);
+  before('ensure test db is emtpy', () => {
+    return db.raw();
   });
 
+  after('destroy db connection', () => {
+    return db.destroy();
+  });
+  afterEach( 'clear db data',() =>{ 
+    return db.raw();
+  });
+ 
 
-  after('disconnect from db', () => db.destroy());
+
+
 
   describe('POST /notes', () => {
     ['subject', 'content'].forEach(field => {
-      const newNote = { subject, content };
-
-      it(`responds with 400 missing '${field}' if not supplied`, () => {
-        delete newNote[field];
-
-        return supertest(app)
-          .post('/notes')
-          .send(newNote)
-          .expect(400, {
-            error: { message: `'${field}' is required` },
-          });
+      const newNote_id = '2385478dfhfhf-38ff';
+      beforeEach('seed note', () =>{
+        return db.into('notes').insert({ subject: 'foo', newNote_id });
       });
-    });
-
-    it('with valid note, inserts into db and returns 201 with location', function () {
-        this.retries(3);
-        const { subject, content,  } = testNote;
-        const newNote = { subject, content };
+      it('inserts into db and returns 201', () =>{
+        const { subject, content, id } = testNote[0];
+        const newNote = { subject, content, id };
         const expected = serializeNote(newNote);
 
+        return supertest( app )
+          .post('/notes')
+          .send( newNote )
+          .expect(201)
+          .expect( response =>{
+            expect(response.body).to.include(expected);
+          });
+      });
+
+      
+    });
+
+
   });
+
 
 
 
 
 
 });
- 
